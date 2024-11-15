@@ -26,7 +26,7 @@ pipeline {
                 script {
                     // Set Helm release name and chart directory
                     def helmRelease = 'java-mysql-app'
-                    def chartDir = 'helm-chart'
+                    def chartDir = 'java-app-helm-chart'
 
                     // Run Helm upgrade or install with the KUBECONFIG set
                     withEnv(["KUBECONFIG=${KUBECONFIG}"]) {

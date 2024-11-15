@@ -27,7 +27,7 @@ mysql:
 # Java App Configuration
 app:
   image: nizamra/suseventsdetector:{{ .Values.app.tag | default "latest" }}
-  replicas: 2
+  replicas: 3
   port: 8080
   env:
     mysqlHost: mysql-db

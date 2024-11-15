@@ -1,5 +1,0 @@
-apiVersion: v2
-name: mysql-app
-description: A Helm chart for deploying Java app with MySQL on Kubernetes
-version: 1.0.0
-appVersion: "1.0"

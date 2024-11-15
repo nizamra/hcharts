@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-db
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-db
+  template:
+    metadata:
+      labels:
+        app: mysql-db
+    spec:
+      containers:
+        - name: mysql-db
+          image: {{ .Values.mysql.image }}
+          ports:
+            - containerPort: {{ .Values.mysql.port }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.mysql.rootPassword }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.mysql.database }}
+            - name: MYSQL_USER
+              value: {{ .Values.mysql.username }}
+            - name: MYSQL_PASSWORD
+              value: {{ .Values.mysql.password }}
+          resources:
+            limits:
+              memory: {{ .Values.mysql.resources.limits.memory }}
+              cpu: {{ .Values.mysql.resources.limits.cpu }}
+            requests:
+              memory: {{ .Values.mysql.resources.requests.memory }}
+              cpu: {{ .Values.mysql.resources.requests.cpu }}
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "127.0.0.1"]
+            initialDelaySeconds: {{ .Values.mysql.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.mysql.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.mysql.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.mysql.livenessProbe.failureThreshold }}
+          readinessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-h", "127.0.0.1"]
+            initialDelaySeconds: {{ .Values.mysql.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.mysql.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.mysql.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.mysql.readinessProbe.failureThreshold }}

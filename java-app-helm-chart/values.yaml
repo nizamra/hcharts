@@ -1,39 +1,13 @@
-# MySQL Configuration
-mysql:
-  image: mysql:8.0
-  username: detector-user
-  password: detector-pass
-  rootPassword: root-pass
-  database: detector
-  port: 3306
-  resources:
-    limits:
-      memory: "512Mi"
-      cpu: "500m"
-    requests:
-      memory: "256Mi"
-      cpu: "250m"
-  livenessProbe:
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 5
-  readinessProbe:
-    initialDelaySeconds: 10
-    periodSeconds: 5
-    timeoutSeconds: 3
-    failureThreshold: 3
-
 # Java App Configuration
 app:
   image: nizamra/suseventsdetector:{{ .Values.app.tag | default "latest" }}
   replicas: 3
   port: 8080
   env:
-    mysqlHost: mysql-db
-    mysqlDatabase: detector
-    mysqlUsername: detector-user
-    mysqlPassword: detector-pass
+    mysqlHost: database-1.c9i2ya4kms71.us-east-1.rds.amazonaws.com
+    mysqlDatabase: database-1
+    mysqlUsername: admin
+    mysqlPassword: Mast3erP1ss
   resources:
     limits:
       memory: "1024Mi"

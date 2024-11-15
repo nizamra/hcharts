@@ -4,10 +4,10 @@ app:
   replicas: 3
   port: 8080
   env:
-    mysqlHost: database-1.c9i2ya4kms71.us-east-1.rds.amazonaws.com
-    mysqlDatabase: database-1
-    mysqlUsername: admin
-    mysqlPassword: Mast3erP1ss
+    mysqlHost:
+    mysqlDatabase:
+    mysqlUsername:
+    mysqlPassword: 
   resources:
     limits:
       memory: "1024Mi"
